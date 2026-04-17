@@ -105,14 +105,14 @@ const Login = () => {
         </form>
 
         {/* Demo Info */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
+        {/* <div className="mt-8 pt-6 border-t border-gray-200">
           <p className="text-xs text-gray-600 text-center mb-3 font-semibold">Demo Credentials:</p>
           <div className="space-y-2 text-xs text-gray-600">
             <p>📧 Email: <span className="font-mono">admin@example.com</span></p>
             <p>🔐 Password: <span className="font-mono">any password</span></p>
             <p className="text-center text-gray-500 mt-2">Choose any role to login</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )
