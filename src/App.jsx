@@ -12,6 +12,9 @@ import Shift from './pages/admin/Shift'
 import Clients from './pages/admin/Clients'
 import Payroll from './pages/admin/Payroll'
 import Billing from './pages/admin/Billing'
+import Messages from './pages/admin/Messages'
+import Forms from './pages/admin/Forms'
+import Incidents from './pages/admin/Incidents'
 
 // Caregiver Pages
 import CaregiverDashboard from './pages/caregiver/CaregiverDashboard'
@@ -25,6 +28,8 @@ import MyTimesheet from './pages/caregiver/MyTimesheet'
 import ClientDashboard from './pages/client/ClientDashboard'
 import MyCarePlan from './pages/client/MyCarePlan'
 import MyMedication from './pages/client/MyMedication'
+import CareTeamContact from './pages/client/CareTeamContact'
+import HealthRecords from './pages/client/HealthRecords'
 
 // Layouts
 import DashboardLayout from './layouts/DashboardLayout'
@@ -52,7 +57,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
 const Unauthorized = () => (
   <div className="flex items-center justify-center h-screen">
     <div className="text-center">
-      <h1 className="text-4xl font-bold text-red-600 mb-4">Access Denied</h1>
+      <h1 className="text-3xl md:text-4xl font-bold text-red-600 mb-4">Access Denied</h1>
       <p className="text-gray-600 mb-8">You don't have permission to access this page.</p>
       <a href="/login" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
         Back to Login
@@ -117,6 +122,36 @@ function App() {
               <ProtectedRoute requiredRole="admin">
                 <DashboardLayout>
                   <Billing />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/messages"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <DashboardLayout>
+                  <Messages />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/contacts"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <DashboardLayout>
+                  <Forms />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/incidents"
+            element={
+              <ProtectedRoute requiredRole="admin">
+                <DashboardLayout>
+                  <Incidents />
                 </DashboardLayout>
               </ProtectedRoute>
             }
@@ -211,6 +246,26 @@ function App() {
               <ProtectedRoute requiredRole="client">
                 <DashboardLayout>
                   <MyMedication />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/client/care-team"
+            element={
+              <ProtectedRoute requiredRole="client">
+                <DashboardLayout>
+                  <CareTeamContact />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/client/health-records"
+            element={
+              <ProtectedRoute requiredRole="client">
+                <DashboardLayout>
+                  <HealthRecords />
                 </DashboardLayout>
               </ProtectedRoute>
             }

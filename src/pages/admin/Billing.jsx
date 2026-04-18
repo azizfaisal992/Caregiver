@@ -10,9 +10,9 @@ const Billing = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Billing Management</h1>
-        <button className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Billing Management</h1>
+        <button className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
           <FileText size={20} className="mr-2" />
           Generate Invoice
         </button>
@@ -40,7 +40,8 @@ const Billing = () => {
 
       {/* Invoices Table */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="w-full">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[860px]">
           <thead className="bg-gray-50 border-b">
             <tr>
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Client</th>
@@ -83,7 +84,8 @@ const Billing = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
     </div>
   )

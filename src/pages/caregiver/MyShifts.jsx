@@ -10,7 +10,7 @@ const MyShifts = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-gray-800 mb-8">My Shifts</h1>
+      <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">My Shifts</h1>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-lg shadow p-4"><p className="text-gray-600 text-sm font-semibold">This Week</p><p className="text-3xl font-bold text-blue-600 mt-2">24 hrs</p></div>
         <div className="bg-white rounded-lg shadow p-4"><p className="text-gray-600 text-sm font-semibold">This Month</p><p className="text-3xl font-bold text-green-600 mt-2">96 hrs</p></div>
@@ -20,8 +20,8 @@ const MyShifts = () => {
       <div className="space-y-4">
         {shifts.map((shift) => (
           <div key={shift.id} className="bg-white rounded-lg shadow hover:shadow-lg transition p-6 border-l-4 border-blue-500">
-            <div className="flex justify-between items-start mb-4">
-              <div><h3 className="text-2xl font-bold text-gray-800">{shift.client}</h3><p className="text-sm text-gray-600 mt-1">{shift.day} • {shift.date}</p></div>
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
+              <div><h3 className="text-xl md:text-2xl font-bold text-gray-800">{shift.client}</h3><p className="text-sm text-gray-600 mt-1">{shift.day} • {shift.date}</p></div>
               <span className="px-4 py-2 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">{shift.status}</span>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 pb-6 border-b">

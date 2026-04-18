@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/authContext.js'
-import { Menu, X, LogOut, Home, Calendar, Users, DollarSign, FileText, Clock, CheckSquare, CreditCard, Pill } from 'lucide-react'
+import { Menu, X, LogOut, Home, Calendar, Users, DollarSign, FileText, Clock, CheckSquare, CreditCard, Pill, MessageSquare, AlertTriangle, Phone, Activity } from 'lucide-react'
 
 const DashboardLayout = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const { user, logout } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -23,6 +23,9 @@ const DashboardLayout = ({ children }) => {
         { label: 'Clients', icon: Users, path: '/admin/clients' },
         { label: 'Payroll', icon: DollarSign, path: '/admin/payroll' },
         { label: 'Billing', icon: FileText, path: '/admin/billing' },
+        { label: 'Messages', icon: MessageSquare, path: '/admin/messages' },
+        { label: 'Contacts', icon: Users, path: '/admin/contacts' },
+        { label: 'Incidents', icon: AlertTriangle, path: '/admin/incidents' },
       ],
       caregiver: [
         { label: 'Dashboard', icon: Home, path: '/caregiver/dashboard' },
@@ -36,6 +39,8 @@ const DashboardLayout = ({ children }) => {
         { label: 'Dashboard', icon: Home, path: '/client/dashboard' },
         { label: 'Care Plan', icon: FileText, path: '/client/careplan' },
         { label: 'Medications', icon: Pill, path: '/client/medication' },
+        { label: 'Care Team', icon: Phone, path: '/client/care-team' },
+        { label: 'Health Records', icon: Activity, path: '/client/health-records' },
       ],
     }
 
@@ -44,13 +49,28 @@ const DashboardLayout = ({ children }) => {
 
   const navItems = getNavItems()
 
+  const handleNavClick = (path) => {
+    navigate(path)
+    setSidebarOpen(false)
+  }
+
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100">
+      {sidebarOpen && (
+        <button
+          aria-label="Close sidebar overlay"
+          className="fixed inset-0 bg-black/40 z-30 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <div
-        className={`${
-          sidebarOpen ? 'w-64' : 'w-20'
-        } bg-gray-900 text-white transition-all duration-300 fixed h-screen overflow-y-auto`}
+        className={`
+          fixed top-0 left-0 z-40 h-screen overflow-y-auto bg-gray-900 text-white transition-all duration-300
+          ${sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64'}
+          md:translate-x-0 md:z-20 ${sidebarOpen ? 'md:w-64' : 'md:w-20'}
+        `}
       >
         <div className="p-4 flex items-center justify-between">
           {sidebarOpen && (
@@ -77,14 +97,14 @@ const DashboardLayout = ({ children }) => {
           {navItems.map((item) => {
             const Icon = item.icon
             return (
-              <a
+              <button
                 key={item.path}
-                href={item.path}
-                className="flex items-center px-4 py-3 hover:bg-gray-800 text-gray-300 hover:text-white transition"
+                onClick={() => handleNavClick(item.path)}
+                className="w-full flex items-center px-4 py-3 hover:bg-gray-800 text-gray-300 hover:text-white transition text-left"
               >
                 <Icon size={20} />
                 {sidebarOpen && <span className="ml-3">{item.label}</span>}
-              </a>
+              </button>
             )
           })}
         </nav>
@@ -102,20 +122,30 @@ const DashboardLayout = ({ children }) => {
       </div>
 
       {/* Main Content */}
-      <div className={`${sidebarOpen ? 'ml-64' : 'ml-20'} flex-1 overflow-auto transition-all duration-300`}>
+      <div className={`flex-1 overflow-auto transition-all duration-300 ${sidebarOpen ? 'md:ml-64' : 'md:ml-20'}`}>
         {/* Top Bar */}
-        <div className="bg-white shadow-md p-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-800">
-            {user?.role.charAt(0).toUpperCase() + user?.role.slice(1)} Portal
-          </h2>
-          <div className="text-right">
-            <p className="text-sm text-gray-600">Welcome back!</p>
-            <p className="text-xs text-gray-500">{new Date().toLocaleDateString()}</p>
+        <div className="bg-white shadow-md px-4 py-3 md:p-4 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 min-w-0">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="md:hidden p-2 rounded hover:bg-gray-100"
+              aria-label="Toggle sidebar"
+            >
+              <Menu size={18} />
+            </button>
+            <h2 className="text-lg md:text-2xl font-bold text-gray-800 truncate">
+              {user?.role.charAt(0).toUpperCase() + user?.role.slice(1)} Portal
+            </h2>
+          </div>
+
+          <div className="text-right shrink-0">
+            <p className="text-xs md:text-sm text-gray-600">Welcome back!</p>
+            <p className="text-[11px] md:text-xs text-gray-500">{new Date().toLocaleDateString()}</p>
           </div>
         </div>
 
         {/* Page Content */}
-        <div className="p-6">
+        <div className="p-4 md:p-6">
           {children}
         </div>
       </div>

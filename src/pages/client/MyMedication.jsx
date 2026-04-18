@@ -15,7 +15,7 @@ const MyMedication = () => {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-gray-800 mb-8">My Medications</h1>
+      <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8">My Medications</h1>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-lg shadow p-4"><p className="text-gray-600 text-sm font-semibold">Total Medications</p><p className="text-3xl font-bold text-blue-600 mt-2">{totalCount}</p></div>
         <div className="bg-white rounded-lg shadow p-4"><p className="text-gray-600 text-sm font-semibold">Taken Today</p><p className="text-3xl font-bold text-green-600 mt-2">{takenCount}</p></div>
